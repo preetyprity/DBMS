@@ -1,0 +1,80 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> notee
+mysql> CREATE DATABASE IIT14THBATCH;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> Show databases;
++--------------------+
+| Database           |
++--------------------+
+| iit14thbatch       |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> USE IIT14THBATCH;
+Database changed
+mysql> CREATE TABLE student(
+    -> STUDENT_ID INT,
+    -> STUDENT_NAME VARCHAR(30),
+    -> SESSION VARCHAR(10),
+    -> CGPA FLOAT(5,2)'
+    '> 
+    '> CGPA FLOAT(5,2),
+    '> ;
+    '> );
+    '> ;
+    '> ->
+    '> ;
+    '> mysql> USE IIT14THBATCH;
+Database changed
+mysql> CREATE TABLE Student(
+    -> Student_id INT,
+    -> student_name VARCHAR(30),
+    -> SESSION VARCHAR(10),
+    -> CGPA FLOAT(5,2),
+    -> GENDER VARCHAR(7),MOBILE_PHONE VARCHAR(15),
+    -> Email VARCHAR(100),
+    -> DOM DATE);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| student                |
++------------------------+
+1 row in set (0.01 sec)
+
+mysql> DESCRIBE Student;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| Student_id   | int          | YES  |     | NULL    |       |
+| student_name | varchar(30)  | YES  |     | NULL    |       |
+| SESSION      | varchar(10)  | YES  |     | NULL    |       |
+| CGPA         | float(5,2)   | YES  |     | NULL    |       |
+| GENDER       | varchar(7)   | YES  |     | NULL    |       |
+| MOBILE_PHONE | varchar(15)  | YES  |     | NULL    |       |
+| Email        | varchar(100) | YES  |     | NULL    |       |
+| DOM          | date         | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
