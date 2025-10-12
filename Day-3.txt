@@ -1,0 +1,302 @@
+mysql> CREATE DATABASE flower;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> DROP DATABASE flower;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> USE iit14thbatch;
+Database changed
+mysql> SHOW TAble;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| client                 |
+| flower                 |
+| student                |
++------------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT* FROM client;
++-----+-------+------+
+| id  | name  | age  |
++-----+-------+------+
+| 567 | prity |   23 |
++-----+-------+------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE HALL(
+    -> id INT ,
+    -> NAME VARCHAR(30),
+    -> Age INT,
+    -> PRIMARY KEY(id,Age));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO HALL(id,NAME,Age)VALUES(1,'pritilota',6);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO HALL(id,NAME,Age)VALUES(2,'pritilota',6);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| client                 |
+| flower                 |
+| hall                   |
+| student                |
++------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM hall; 
++----+-----------+-----+
+| id | NAME      | Age |
++----+-----------+-----+
+|  1 | pritilota |   6 |
+|  2 | pritilota |   6 |
++----+-----------+-----+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO HALL(id,NAME,Age)VALUES(1,'pritilota',6);
+ERROR 1062 (23000): Duplicate entry '1-6' for key 'hall.PRIMARY'
+mysql> INSERT INTO HALL(id,NAME,Age)VALUES(1,'pritilota',3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM hall;
++----+-----------+-----+
+| id | NAME      | Age |
++----+-----------+-----+
+|  1 | pritilota |   3 |
+|  1 | pritilota |   6 |
+|  2 | pritilota |   6 |
++----+-----------+-----+
+3 rows in set (0.00 sec)
+
+mysql> DESC hall;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| NAME  | varchar(30) | YES  |     | NULL    |       |
+| Age   | int         | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE UserType(
+    -> UT_id INT PRIMARY KEY,
+    -> U_Type VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE User(
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>  INSERT INTO UserType(UT_id,U_Type)VALUES(1,'ABC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO UserType(UT_id,U_Type)VALUES(2,'DEF');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO UserType(UT_id,U_Type)VALUES(3,'GHI');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO UserType(UT_id,U_Type)VALUES(4,'JKL');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO UserTypeVALUES(1,'ABC');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,'ABC')' at line 1
+mysql> CREATE TABLE User(
+    -> U_ID INT PRIMARY KEY,
+    -> User_Name VARCHAR(30),
+    -> DOB DATE,
+    -> UT_id INT,
+    -> FOREIGN KEY(UT_id)REFERENCES UserType(UT_id));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>  INSERT INTO User(U_ID,User_Name,DOB,UT_id)VALUES(101,'QWE','2022-06-06',1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO User(U_ID,User_Name,DOB,UT_id)VALUES(102,'QWE','2022-06-06',5);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`iit14thbatch`.`user`, CONSTRAINT `user_ibfk_1` FOREIGN KEY (`UT_id`) REFERENCES `usertype` (`UT_id`))
+mysql>  CREATE TABLE User_2(
+    ->  U_ID INT PRIMARY KEY,
+    ->  User_Name VARCHAR(30),
+    -> DOB DATE,
+    -> UT_id INT,
+    -> CONSTRAINT fk_UT_id FOREIGN KEY(UT_id)REFERENCES UserType(UT_id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Market1(
+    -> shop INT PRIMARY KEY,
+    -> catalog VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Market1(shop,catalog)VALUES(1,'fishM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Market1(shop,catalog)VALUES(2,'clothM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Market1(shop,catalog)VALUES(3,'vegM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Market1(shop,catalog)VALUES(4,'bookM');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE Market2(
+    -> id INT PRIMARY KEY,
+    -> Shop_Name VARCHAR(50),
+    -> shop INT,
+    ->  FOREIGN KEY(Shop)REFERENCES Market1(shop));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Market2(id,Shop_Name,shop)VALUES(101,'taza',1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO Market2(id,Shop_Name,shop)VALUES(102,'rupa',2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO Market2(id,Shop_Name,shop)VALUES(103,'green',3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO Market2(id,Shop_Name,shop)VALUES(104,'knowl',4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO Market2(id,Shop_Name,shop)VALUES(105,'yuu',5);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`iit14thbatch`.`market2`, CONSTRAINT `market2_ibfk_1` FOREIGN KEY (`shop`) REFERENCES `market1` (`shop`))
+mysql> CREATE TABLE Market2(
+    ->  id INT PRIMARY KEY,
+    ->  Shop_Name VARCHAR(50),
+    ->  shop INT,
+    ->  CONSTRAINT fk_shop FOREIGN KEY(shop)REFERENCES Market1(shop));
+ERROR 1050 (42S01): Table 'market2' already exists
+mysql>  CREATE TABLE Market3(
+    ->  id INT PRIMARY KEY,
+    ->  Shop_Name VARCHAR(50),
+    ->  shop INT,
+    -> CONSTRAINT fk_shop FOREIGN KEY(shop)REFERENCES Market1(shop));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE TEST1(
+    -> testid INT,
+    -> testname VARCHAR(43),
+    -> age SMALLINT,
+    -> CHECK(age>=18));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TEST1(testid,testname,age)VALUES(101,'pty',12);
+ERROR 3819 (HY000): Check constraint 'test1_chk_1' is violated.
+mysql> INSERT INTO TEST1(testid,testname,age)VALUES(102,'tan',26);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC Market1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| shop    | int         | NO   | PRI | NULL    |       |
+| catalog | varchar(50) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> DESC Market2;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| id        | int         | NO   | PRI | NULL    |       |
+| Shop_Name | varchar(50) | YES  |     | NULL    |       |
+| shop      | int         | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM Market1;
++------+---------+
+| shop | catalog |
++------+---------+
+|    1 | fishM   |
+|    2 | clothM  |
+|    3 | vegM    |
+|    4 | bookM   |
++------+---------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Market2;
++-----+-----------+------+
+| id  | Shop_Name | shop |
++-----+-----------+------+
+| 101 | taza      |    1 |
+| 102 | rupa      |    2 |
+| 103 | green     |    3 |
+| 104 | knowl     |    4 |
++-----+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE employee(
+    -> ID INT ,
+    -> Name VARCHAR(50),
+    -> salary INT DEFAULT 25000);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO employee(ID,Name,salary)VALUES(1,'marjia',7000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO employee(ID,Name)VALUES(2,'prity');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM employee;
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE TEST2(
+    -> TEST_ID INT,
+    -> TEST_NAME VARCHAR(30),
+    -> TEST_DATE DATETIME DEFAULT CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TEST2(TEST_ID,TEST_NAME)VALUES(101,'ppp');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM TEST2;
++---------+-----------+---------------------+
+| TEST_ID | TEST_NAME | TEST_DATE           |
++---------+-----------+---------------------+
+|     101 | ppp       | 2025-10-12 12:15:17 |
++---------+-----------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE Arong(
+    -> customer INT,
+    -> section VARCHAR(50)DEFAULT 'tagga',
+    ->  TEST_DATE DATETIME DEFAULT CURRENT_TIMESTAMP);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Arong(customer)VALUES(1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM Arong;
++----------+---------+---------------------+
+| customer | section | TEST_DATE           |
++----------+---------+---------------------+
+|        1 | tagga   | 2025-10-12 12:21:04 |
++----------+---------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO Arong(customer,section,TEST_DATE)VALUES(2,'earth',2025-09-11 11:11:05);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '11:11:05)' at line 1
+mysql>   INSERT INTO Arong(customer,section,TEST_DATE)VALUES(2,'earth','2025-09-11 11:11:05');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM Arong;
++----------+---------+---------------------+
+| customer | section | TEST_DATE           |
++----------+---------+---------------------+
+|        1 | tagga   | 2025-10-12 12:21:04 |
+|        2 | earth   | 2025-09-11 11:11:05 |
++----------+---------+---------------------+
+2 rows in set (0.00 sec)
+
