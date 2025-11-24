@@ -1,0 +1,373 @@
+mysql> SHOW DATBASES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATBASES' at line 1
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| campus             |
+| iit14thbatch       |
+| information_schema |
+| labquiz_01_1958    |
+| mysql              |
+| performance_schema |
+| sakila             |
+| summer             |
+| sys                |
+| transport          |
+| world              |
++--------------------+
+11 rows in set (0.01 sec)
+
+mysql> USE iit14thbatch;
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| arong                  |
+| client                 |
+| employee               |
+| flower                 |
+| hall                   |
+| market1                |
+| market2                |
+| market3                |
+| student                |
+| test1                  |
+| test2                  |
+| user                   |
+| user_2                 |
+| usertype               |
++------------------------+
+14 rows in set (0.00 sec)
+
+mysql> DESC employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int         | YES  |     | NULL    |       |
+| Name   | varchar(50) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | 25000   |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> DESC flower;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| ID    | int         | NO   |     | NULL    |       |
+| color | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee UNION SELECT * FROM flower;
+ERROR 1222 (21000): The used SELECT statements have a different number of columns
+mysql> DESC HALL;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| NAME  | varchar(30) | YES  |     | NULL    |       |
+| Age   | int         | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee UNION SELECT * FROM HALL;
++------+-----------+--------+
+| ID   | Name      | salary |
++------+-----------+--------+
+|    1 | marjia    |   7000 |
+|    2 | prity     |  25000 |
+|    1 | pritilota |      3 |
+|    1 | pritilota |      6 |
+|    2 | pritilota |      6 |
++------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS WHERE CONSTRIANT_SCHEMA ='iit14thbatch';
+ERROR 1054 (42S22): Unknown column 'CONSTRIANT_SCHEMA' in 'where clause'
+mysql> SHOW INDEXS IN HALL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INDEXS IN HALL' at line 1
+mysql> SHOW INDEXS IN flower;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INDEXS IN flower' at line 1
+mysql> 
+mysql> 
+mysql> SHOW INDEXES IN flower;
+Empty set (0.00 sec)
+
+mysql> SHOW INDEXES IN HALL;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| hall  |          0 | PRIMARY  |            1 | id          | A         |           2 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| hall  |          0 | PRIMARY  |            2 | Age         | A         |           2 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT AVG(salary) FROM employee;
++-------------+
+| AVG(salary) |
++-------------+
+|  16000.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT * FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS WHERE CONSTRAINT_SCHEMA ='iit14thbatch';
++--------------------+-------------------+-----------------+---------------------------+--------------------------+------------------------+--------------+-------------+-------------+------------+-----------------------+
+| CONSTRAINT_CATALOG | CONSTRAINT_SCHEMA | CONSTRAINT_NAME | UNIQUE_CONSTRAINT_CATALOG | UNIQUE_CONSTRAINT_SCHEMA | UNIQUE_CONSTRAINT_NAME | MATCH_OPTION | UPDATE_RULE | DELETE_RULE | TABLE_NAME | REFERENCED_TABLE_NAME |
++--------------------+-------------------+-----------------+---------------------------+--------------------------+------------------------+--------------+-------------+-------------+------------+-----------------------+
+| def                | iit14thbatch      | fk_shop         | def                       | iit14thbatch             | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | market3    | market1               |
+| def                | iit14thbatch      | fk_UT_id        | def                       | iit14thbatch             | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | user_2     | usertype              |
+| def                | iit14thbatch      | market2_ibfk_1  | def                       | iit14thbatch             | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | market2    | market1               |
+| def                | iit14thbatch      | user_ibfk_1     | def                       | iit14thbatch             | PRIMARY                | NONE         | NO ACTION   | NO ACTION   | user       | usertype              |
++--------------------+-------------------+-----------------+---------------------------+--------------------------+------------------------+--------------+-------------+-------------+------------+-----------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT SUM(salary) FROM employee;
++-------------+
+| SUM(salary) |
++-------------+
+|       32000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(salary) FROM employee;
++-------------+
+| MIN(salary) |
++-------------+
+|        7000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECXt
+    -> ^C
+mysql> SELECT MAX(salary) FROM employee;
++-------------+
+| MAX(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG (salary) FROM employee WHERE ID>=2;
++--------------+
+| AVG (salary) |
++--------------+
+|   25000.0000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(salary) FROM employee WHERE ID>=2;
++-------------+
+| MAX(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(salary) FROM employee WHERE ID>=2;
++-------------+
+| MIN(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(salary) FROM employee WHERE salary>=200;
++-------------+
+| MIN(salary) |
++-------------+
+|        7000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(salary) FROM employee WHERE salary>=200;
++-------------+
+| MAX(salary) |
++-------------+
+|       25000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(salary) FROM employee WHERE salary>=200;
++-------------+
+| AVG(salary) |
++-------------+
+|  16000.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE employee DROP FOREIGN KEY fk_id;
+ERROR 1091 (42000): Can't DROP 'fk_id'; check that column/key exists
+mysql> UPDATE EMPLOYEE SET ID=101 WHERE ID=NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM employee;
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO employee(ID,Name,salary)VALUES(1,'sraa',5779);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employee(ID,Name,salary)VALUES(2,'sumiya',40765);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employee(ID,Name,salary)VALUES(3,'sumiya',3527);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM employee;
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
+|    1 | sraa   |   5779 |
+|    2 | sumiya |  40765 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT ID) FROM employee;
++--------------------+
+| COUNT(DISTINCT ID) |
++--------------------+
+|                  3 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT salary) FROM employee;
++------------------------+
+| COUNT(DISTINCT salary) |
++------------------------+
+|                      5 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT name) FROM employee;
++----------------------+
+| COUNT(DISTINCT name) |
++----------------------+
+|                    4 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT ID) FROM employee GROUP BY ID;
++--------------------+
+| COUNT(DISTINCT ID) |
++--------------------+
+|                  1 |
+|                  1 |
+|                  1 |
++--------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT name) FROM employee GROUP BY ID;
++----------------------+
+| COUNT(DISTINCT name) |
++----------------------+
+|                    2 |
+|                    2 |
+|                    1 |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT ID, COUNT(DISTINCT name) FROM employee GROUP BY ID;
++------+----------------------+
+| ID   | COUNT(DISTINCT name) |
++------+----------------------+
+|    1 |                    2 |
+|    2 |                    2 |
+|    3 |                    1 |
++------+----------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT ID, COUNT(DISTINCT name) FROM employee WHERE salary>=5000 GROUP BY ID;
++------+----------------------+
+| ID   | COUNT(DISTINCT name) |
++------+----------------------+
+|    1 |                    2 |
+|    2 |                    2 |
++------+----------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT name, COUNT(ID) FROM employee  GROUP BY name ORDER BY name ASC;
++--------+-----------+
+| name   | COUNT(ID) |
++--------+-----------+
+| marjia |         1 |
+| prity  |         1 |
+| sraa   |         1 |
+| sumiya |         2 |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT name, COUNT(ID) FROM employee  GROUP BY name ORDER BY name DSC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DSC' at line 1
+mysql> SELECT name, COUNT(ID) FROM employee  GROUP BY name ORDER BY name DESC;
++--------+-----------+
+| name   | COUNT(ID) |
++--------+-----------+
+| sumiya |         2 |
+| sraa   |         1 |
+| prity  |         1 |
+| marjia |         1 |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT name, COUNT(ID) FROM employee  GROUP BY name ORDER BY name;
++--------+-----------+
+| name   | COUNT(ID) |
++--------+-----------+
+| marjia |         1 |
+| prity  |         1 |
+| sraa   |         1 |
+| sumiya |         2 |
++--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT name, COUNT(ID) FROM employee  GROUP BY name HAVING COUNT(ID)>=2 ORDER BY name;
++--------+-----------+
+| name   | COUNT(ID) |
++--------+-----------+
+| sumiya |         2 |
++--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name, COUNT(salary) FROM employee  GROUP BY name HAVING SUM(salary)>=2 ORDER BY name;
++--------+---------------+
+| name   | COUNT(salary) |
++--------+---------------+
+| marjia |             1 |
+| prity  |             1 |
+| sraa   |             1 |
+| sumiya |             2 |
++--------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT name, COUNT(salary) FROM employee  GROUP BY name HAVING SUM(salary)<25000 ORDER BY name;
++--------+---------------+
+| name   | COUNT(salary) |
++--------+---------------+
+| marjia |             1 |
+| sraa   |             1 |
++--------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee;
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
+|    1 | sraa   |   5779 |
+|    2 | sumiya |  40765 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+5 rows in set (0.00 sec)
+
