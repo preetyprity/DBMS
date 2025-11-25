@@ -1,0 +1,348 @@
+mysql> CREATE DATABASE campus;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE campus;
+Database changed
+mysql> CREATE TABLE HALL(
+    -> id INT,
+    -> name VARCHAR(30),
+    -> age INT );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM HALL;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO HALL(id,name,age)VALUES(1,'pritilota',30);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> ALTER TABLE HALL ADD numSt INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO HALL(id,name,age,numSt)VALUES(2,'jahanar',23,197);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc HALL;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(30) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| numSt | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE HALL DROP COLUMN numSt;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE HALL ADD CONSTRAINT pk_id PRIMARY KEY(id);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE HALL SET id=2 Where id=3;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> INSERT INTO HALL(id,name,age)VALUES(4,'sufia',20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO HALL(id,name,age)VALUES(2,'bangomata',15);
+ERROR 1062 (23000): Duplicate entry '2' for key 'hall.PRIMARY'
+mysql> INSERT INTO HALL(id,name,age)VALUES(5,'bangomata',15);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM HALL;
++----+-----------+------+
+| id | name      | age  |
++----+-----------+------+
+|  1 | pritilota |   30 |
+|  2 | jahanar   |   23 |
+|  4 | sufia     |   20 |
+|  5 | bangomata |   15 |
++----+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABL:E
+    -> CREATE TABLE Employee(
+    -> id INT,
+    -> name VARCHAR(53),
+    -> age INT );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABL:E
+CREATE TABLE Employee(
+id INT,
+name VARCHAR(53),
+age INT )' at line 1
+mysql> CREATE TABLE Employee(
+    -> id INT,
+    -> name VARCHAR(23),
+    -> age INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Employee(id,name,age)VALUES(1,'prity',30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO HALL(id,name,age)VALUES(2,'marjia',20);
+ERROR 1062 (23000): Duplicate entry '2' for key 'hall.PRIMARY'
+mysql> INSERT INTO Employee(id,name,age)VALUES(2,'tanzila',25);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> ALTER TABLE Employee ADD COLUMN code INT REFERENCES HALL(ID);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Employee;
++------+---------+------+------+
+| id   | name    | age  | code |
++------+---------+------+------+
+|    1 | prity   |   30 | NULL |
+|    2 | tanzila |   25 | NULL |
++------+---------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM HALL:
+    -> ^C
+mysql> SELECT * FROM HALL;
++----+-----------+------+
+| id | name      | age  |
++----+-----------+------+
+|  1 | pritilota |   30 |
+|  2 | jahanar   |   23 |
+|  4 | sufia     |   20 |
+|  5 | bangomata |   15 |
++----+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> DESC Employee;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| name  | varchar(23) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| code  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> DESC HALL:
+    -> ^C
+mysql> desc hall;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(30) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Employee ADD CONSTRAINT fk_dept FOREIGN KEY (id)REFERENCES HALL(id);
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  | MUL | NULL    |       |
+| name  | varchar(23) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| code  | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE EMPLOYEE SET ID=3 WHERE name=prity;
+ERROR 1054 (42S22): Unknown column 'prity' in 'where clause'
+mysql> CREATE TABLE TEST(TESTNAME VARCHAR(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  ALTER TABLE TEST  
+    -> ADD COLUMN TESTID INT,
+    -> ADD CONSTRAINT pk_TESTID PRIMARY KEY(TESTID);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE TEST DROP COLUMN TESTID;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE TEST ADD COLUMN TESTID INT PRIMARY KEY;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC TEST;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| TESTNAME | varchar(20) | YES  |     | NULL    |       |
+| TESTID   | int         | NO   | PRI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>  ALTER TABLE TEST ADD  TESTcd INT PRIMARY KEY;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> CREATE TABLE(
+    -> CODE INT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+CODE INT)' at line 1
+mysql> CREATE TABLE ORDER(
+    -> code);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER(
+code)' at line 1
+mysql> CREATE TABLE ORDER(
+    -> code INT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER(
+code INT)' at line 1
+mysql> CREATE TABLE order(
+    -> code INT);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order(
+code INT)' at line 1
+mysql> CRAETE TABLE (
+    -> code INT,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRAETE TABLE (
+code INT,
+)' at line 1
+mysql> CREATE TABLE ORDER(
+    -> code INT,
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER(
+code INT,
+)' at line 1
+mysql> CRETAE TABLE ORDER (
+    -> em INT
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRETAE TABLE ORDER (
+em INT
+)' at line 1
+mysql> CREATE TABLE ORDER (
+    -> custid INT
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER (
+custid INT
+)' at line 1
+mysql> CREATE TABLE ORDER(
+    -> custid INT 
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER(
+custid INT 
+)' at line 1
+mysql> CREATE TABLE ORDER( custid INT,
+    -> CUSTNAME VARCHAR(67)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER( custid INT,
+CUSTNAME VARCHAR(67)
+)' at line 1
+mysql> CREATE TABLE ORDER(CUSTID INT, CUSTNAME VARCHAR(56));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER(CUSTID INT, CUSTNAME VARCHAR(56))' at line 1
+mysql> CREATE TABLE ORDERS (
+    -> CUSTOMERID INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ALTER TABLE ORDERS 
+    -> ADD COLUMN TESTID INT,
+    -> ADD CONSTRAINT fk_orders_testid FOREIGN KEY(TESTID)REFERENCES TEST (TESTID);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC ORDER;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ORDER' at line 1
+mysql> DESC ORDERS;
++------------+------+------+-----+---------+-------+
+| Field      | Type | Null | Key | Default | Extra |
++------------+------+------+-----+---------+-------+
+| CUSTOMERID | int  | YES  |     | NULL    |       |
+| TESTID     | int  | YES  | MUL | NULL    |       |
++------------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> DROP TEST ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TEST' at line 1
+mysql> DROP TABLE TEST;
+ERROR 3730 (HY000): Cannot drop table 'test' referenced by a foreign key constraint 'fk_orders_testid' on table 'orders'.
+mysql> DROP TABLE TEST :
+    -> ^C
+mysql> CRETAE TABLE TEST2(
+    -> Id INT
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRETAE TABLE TEST2(
+Id INT
+)' at line 1
+mysql> CREARE TABLE TEST2(
+    -> ID INT
+    -> ):
+    -> C
+    -> ^C
+mysql> CREATE TABLE TES(
+    -> ID INT
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> ALTER TABLE TES ADD CONSTRAINT pk_TESTID_testname PRIMARY KEY(TESTID,TESTNAME);
+ERROR 1072 (42000): Key column 'TESTID' doesn't exist in table
+mysql> ALTER TABLE TES ADD CONSTRAINT pk_ID_testname PRIMARY KEY(ID,TESTNAME);
+ERROR 1072 (42000): Key column 'TESTNAME' doesn't exist in table
+mysql> CREATE TABLE TEST3(
+    -> ADD COLUMN TESTID INT,
+    ->  CUSTOMERID INT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ADD COLUMN TESTID INT,
+ CUSTOMERID INT' at line 2
+mysql> CREATE TABLE FLOWER(
+    -> ID INT ,
+    -> name VARCHAR(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE VEGTA(
+    -> code INT ,
+    -> Vname VARCHAR(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO FLOWER(ID,name)VALUES(1,'liliy');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO FLOWER(ID,name)VALUES(2,'sunflower');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO VEGTA(code,Vname)VALUES(14,'potato');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM FLOWER;
++------+-----------+
+| ID   | name      |
++------+-----------+
+|    1 | liliy     |
+|    2 | sunflower |
++------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM VEGTA;
++------+--------+
+| code | Vname  |
++------+--------+
+|   14 | potato |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ID,name.code,Vname FROM FLOWER,VEGTA;
+ERROR 1054 (42S22): Unknown column 'name.code' in 'field list'
+mysql> CREATE TABLE FOOD(
+    -> ID INT,
+    -> NAME VARCHAR(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO FOOD(ID,NAME)SELECT ID,name FROM FLOWER;
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM FOOD;
++------+-----------+
+| ID   | NAME      |
++------+-----------+
+|    1 | liliy     |
+|    2 | sunflower |
++------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> Terminal close -- exit!

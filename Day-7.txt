@@ -1,0 +1,336 @@
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| campus             |
+| iit14thbatch       |
+| information_schema |
+| labquiz_01_1958    |
+| mysql              |
+| performance_schema |
+| sakila             |
+| summer             |
+| sys                |
+| transport          |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> USE iit14thbatch;
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| arong                  |
+| client                 |
+| employee               |
+| flower                 |
+| hall                   |
+| market1                |
+| market2                |
+| market3                |
+| student                |
+| test1                  |
+| test2                  |
+| user                   |
+| user_2                 |
+| usertype               |
++------------------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT DATE("2017-02-11");
++--------------------+
+| DATE("2017-02-11") |
++--------------------+
+| 2017-02-11         |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE("2017-02-11") as RANDOMDATE;
++------------+
+| RANDOMDATE |
++------------+
+| 2017-02-11 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_Format("2017-02-11",') as RANDOMDATE;
+    '> ^C
+mysql> SELECT DATE_Format("2017-02-11","%y");
++--------------------------------+
+| DATE_Format("2017-02-11","%y") |
++--------------------------------+
+| 17                             |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%Y");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%Y") |
++--------------------------------+
+| 2017                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%D");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%D") |
++--------------------------------+
+| 15th                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%M");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%M") |
++--------------------------------+
+| June                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-25","2017-01-15");
++----------------------------------------+
+| DATE_FORMAT("2017-06-25","2017-01-15") |
++----------------------------------------+
+| 2017-01-15                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATEDIFF("2017-06-25","2017-01-15");
++-------------------------------------+
+| DATEDIFF("2017-06-25","2017-01-15") |
++-------------------------------------+
+|                                 161 |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%YY");
++---------------------------------+
+| DATE_FORMAT("2017-06-15","%YY") |
++---------------------------------+
+| 2017Y                           |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%m");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%m") |
++--------------------------------+
+| 06                             |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15","%d");
++--------------------------------+
+| DATE_FORMAT("2017-06-15","%d") |
++--------------------------------+
+| 15                             |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_FORMAT("2017-06-15",INTERVAL 10 DAY);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> SELECT DATE_ADD("2017-06-15",INTERVAL 10 DAY);
++----------------------------------------+
+| DATE_ADD("2017-06-15",INTERVAL 10 DAY) |
++----------------------------------------+
+| 2017-06-25                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DATE_SUB("2017-06-15",INTERVAL 10 DAY);
++----------------------------------------+
+| DATE_SUB("2017-06-15",INTERVAL 10 DAY) |
++----------------------------------------+
+| 2017-06-05                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY(CURRDATE());
+ERROR 1305 (42000): FUNCTION iit14thbatch.CURRDATE does not exist
+mysql> SELECT DAY("2017-02-15" 09:34:21);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '09:34:21)' at line 1
+mysql> SELECT DAY("2017-02-15 09:34:21");
++----------------------------+
+| DAY("2017-02-15 09:34:21") |
++----------------------------+
+|                         15 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAY(CURDATE());
++----------------+
+| DAY(CURDATE()) |
++----------------+
+|             25 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYNAME("2017-02-15");
++-----------------------+
+| DAYNAME("2017-02-15") |
++-----------------------+
+| Wednesday             |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYMONTH("2017-02-15");
+ERROR 1305 (42000): FUNCTION iit14thbatch.DAYMONTH does not exist
+mysql> SELECT DAYOFMONTH("2017-02-15");
++--------------------------+
+| DAYOFMONTH("2017-02-15") |
++--------------------------+
+|                       15 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFMONTH("2017-02-04");
++--------------------------+
+| DAYOFMONTH("2017-02-04") |
++--------------------------+
+|                        4 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR("2017-02-04");
++-------------------------+
+| DAYOFYEAR("2017-02-04") |
++-------------------------+
+|                      35 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE();
++---------------------+
+| SYSDATE()           |
++---------------------+
+| 2025-11-25 12:37:33 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SYSDATE()+1;
++----------------+
+| SYSDATE()+1    |
++----------------+
+| 20251125123746 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DAYOFYEAR(CURDATE());
++----------------------+
+| DAYOFYEAR(CURDATE()) |
++----------------------+
+|                  329 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LENGTH("eduction");
++--------------------+
+| LENGTH("eduction") |
++--------------------+
+|                  8 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT INSTR("eduction","a");
++-----------------------+
+| INSTR("eduction","a") |
++-----------------------+
+|                     0 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT INSTR("education","a");
++------------------------+
+| INSTR("education","a") |
++------------------------+
+|                      5 |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT UCASE("education");
++--------------------+
+| UCASE("education") |
++--------------------+
+| EDUCATION          |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LCASE("education");
++--------------------+
+| LCASE("education") |
++--------------------+
+| education          |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUBSTR("education",2,3);
++-------------------------+
+| SUBSTR("education",2,3) |
++-------------------------+
+| duc                     |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD("education",1,'$');
++-------------------------+
+| LPAD("education",1,'$') |
++-------------------------+
+| e                       |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LPAD("education",11,'$');
++--------------------------+
+| LPAD("education",11,'$') |
++--------------------------+
+| $$education              |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT RPAD("education",11,'$');
++--------------------------+
+| RPAD("education",11,'$') |
++--------------------------+
+| education$$              |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT LRPAD("education",11,'$');
+ERROR 1305 (42000): FUNCTION iit14thbatch.LRPAD does not exist
+mysql> SELECT * FROM employee;
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
+|    1 | sraa   |   5779 |
+|    2 | sumiya |  40765 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ID,NAME ,CONVERT(SALARY,CHAR) FROM employee;
++------+--------+----------------------+
+| ID   | NAME   | CONVERT(SALARY,CHAR) |
++------+--------+----------------------+
+|    1 | marjia | 7000                 |
+|    2 | prity  | 25000                |
+|    1 | sraa   | 5779                 |
+|    2 | sumiya | 40765                |
+|    3 | sumiya | 3527                 |
++------+--------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> DESC employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int         | YES  |     | NULL    |       |
+| Name   | varchar(50) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | 25000   |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> Terminal close -- exit!
