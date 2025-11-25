@@ -1,0 +1,240 @@
+mysql> CREATE DATABASE Transport;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE Transport;
+Database changed
+mysql> CREATE TABLE employee;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TABLE shop;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> CREATE TAbl
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TAbl' at line 1
+mysql> CREATE TABLE shop{\]
+ERROR: 
+Unknown command '\]'.
+    -> CREATE TABLE shop{
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '{\]
+CREATE TABLE shop{' at line 1
+mysql> CREATE TABLE shop(
+    -> id INT PRIMARY KEY,
+    -> Name VARCHAR(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> TRUNCATE TABLE shop;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO shop(id,Name)VALUES(1,'prii');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO shop(Name,id)VALUES('marjia',2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_transport |
++---------------------+
+| shop                |
++---------------------+
+1 row in set (0.02 sec)
+
+mysql> INSERT INTO shop(id,Name)VALUES(3,'sara');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> TRUNCATE TABLE shop;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM shop;
+Empty set (0.00 sec)
+
+mysql>  INSERT INTO shop(id,Name)VALUES(4,'megu');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO shop VALUES(5,'faru');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO shop(id,Name)VALUES('saa',6);
+ERROR 1366 (HY000): Incorrect integer value: 'saa' for column 'id' at row 1
+mysql> INSERT INTO shop(id,name)
+    -> VALUES
+    -> (6,'preety'),
+    -> (7,'tanzila);
+    '> ;
+    '> ;;
+    '> INSERT INTO shop(id,name)
+    '> values;
+    '> ^C
+mysql>  INSERT INTO shop(id,name)
+    ->  VALUES
+    -> (6,'preety'),
+    -> (7,'tanzila');
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM shop;
++----+---------+
+| id | Name    |
++----+---------+
+|  4 | megu    |
+|  5 | faru    |
+|  6 | preety  |
+|  7 | tanzila |
++----+---------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM shop;
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> SELECT * FROM shop;
+Empty set (0.00 sec)
+
+mysql>  INSERT INTO shop(id,Name)VALUES('saa',1);
+ERROR 1366 (HY000): Incorrect integer value: 'saa' for column 'id' at row 1
+mysql>  INSERT INTO shop(id,Name)VALUES(1,'pp');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO shop(id,Name)VALUES(2,'rr');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO shop(id,Name)VALUES(3,'ss');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM shop;
++----+------+
+| id | Name |
++----+------+
+|  1 | pp   |
+|  2 | rr   |
+|  3 | ss   |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM shop WHERE id=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM shop;\
++----+------+
+| id | Name |
++----+------+
+|  2 | rr   |
+|  3 | ss   |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT ID FROM shop;
++----+
+| ID |
++----+
+|  2 |
+|  3 |
++----+
+2 rows in set (0.00 sec)
+
+mysql> SELECT Name FROM shop;
++------+
+| Name |
++------+
+| rr   |
+| ss   |
++------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT id Name FROM shop;
++------+
+| Name |
++------+
+|    2 |
+|    3 |
++------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT id ,Name FROM shop;
++----+------+
+| id | Name |
++----+------+
+|  2 | rr   |
+|  3 | ss   |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql>  SELECT id ,Name FROM shop INTO OUTFILE C:\ICT-2204,DBMS LAB;
+ERROR: 
+Unknown command '\I'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'C:\ICT-2204,DBMS LAB' at line 1
+mysql>  SELECT id ,Name FROM shop INTO OUTFILE C:\ICT-2204,DBMS LAB\Day-2.txt;
+ERROR: 
+Unknown command '\I'.
+ERROR: 
+Unknown command '\D'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'C:\ICT-2204,DBMS LAB\Day-2.txt' at line 1
+mysql> UPDATE shop SET Name='ooo';
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM shop;
++----+------+
+| id | Name |
++----+------+
+|  2 | ooo  |
+|  3 | ooo  |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE shop SET Name='eee'WHERE ID=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM shop;
++----+------+
+| id | Name |
++----+------+
+|  2 | eee  |
+|  3 | ooo  |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE shop SET ID=4 WHERE Name='ooo';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM shop;
++----+------+
+| id | Name |
++----+------+
+|  2 | eee  |
+|  4 | ooo  |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql>  UPDATE shop SET Name='fff',ID=3 WHERE ID=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM shop;
++----+------+
+| id | Name |
++----+------+
+|  3 | fff  |
+|  4 | ooo  |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE shop ADD age INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM shop;
++----+------+------+
+| id | Name | age  |
++----+------+------+
+|  3 | fff  | NULL |
+|  4 | ooo  | NULL |
++----+------+------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE shop ADD Product VARCHAR(50);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Terminal close -- exit!
