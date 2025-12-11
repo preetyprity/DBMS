@@ -1,0 +1,418 @@
+mysql> 
+mysql> CREATE DATABASE marino;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE marino;
+Database changed
+mysql> 
+mysql> CREATE TABLE STUDENT(
+    -> student_id INT,
+    -> student_name VARCHAR(70),
+    -> student_code INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Student(student_id,student_name,student_code)VALUES(1,'prity',1011);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Student(student_id,student_name,student_code)VALUES(2,'sara',1012);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE TABLE Hall(
+    -> hall_id INT,
+    -> hall_name varchar(60),
+    -> hall_code INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Hall(hall_id,hall_name,hall_code)VALUES(101,'pritilota',3011);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Hall(hall_id,hall_name,hall_code)VALUES(102,'SUFIA',3012);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from hALL;
++---------+-----------+-----------+
+| hall_id | hall_name | hall_code |
++---------+-----------+-----------+
+|     101 | pritilota |      3011 |
+|     102 | SUFIA     |      3012 |
++---------+-----------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROm Student;
++------------+--------------+--------------+
+| student_id | student_name | student_code |
++------------+--------------+--------------+
+|          1 | prity        |         1011 |
+|          2 | sara         |         1012 |
++------------+--------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT student_id,student_name From student UNION Select hall_id,hall_name From hall;
++------------+--------------+
+| student_id | student_name |
++------------+--------------+
+|          1 | prity        |
+|          2 | sara         |
+|        101 | pritilota    |
+|        102 | SUFIA        |
++------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Student ADD COLUMN cost INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> TRUNCATE Student;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO Student(student_id,student_name,student_code,salary)VALUES(1,'prity',1011,30000);
+ERROR 1054 (42S22): Unknown column 'salary' in 'field list'
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> INSERT INTO Student(student_id,student_name,student_code,cost)VALUES(1,'prity',1011,30000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Student(student_id,student_name,student_code,cost)VALUES(2,'sara',1012,20000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Student(student_id,student_name,student_code,cost)VALUES(3,'marjia',1013,15000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Student(student_id,student_name,student_code,cost)VALUES(4,'meghla',1014,50000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT AVG(cost) FROM student;
++------------+
+| AVG(cost)  |
++------------+
+| 28750.0000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(cost) FROM student;
++-------------+
+| COUNT(cost) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM student;
++----------+
+| COUNT(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT STUDENT_ID) FROM student;
++----------------------------+
+| COUNT(DISTINCT STUDENT_ID) |
++----------------------------+
+|                          4 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(COST) FROM STUDENT;
++-----------+
+| SUM(COST) |
++-----------+
+|    115000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(COST) FROM STUDENT;
++-----------+
+| MAX(COST) |
++-----------+
+|     50000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(COST) FROM STUDENT;
++-----------+
+| MIN(COST) |
++-----------+
+|     15000 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MIN(COST),HALL_NAME FROM STUDENT;
+ERROR 1054 (42S22): Unknown column 'HALL_NAME' in 'field list'
+mysql> SELECT MIN(COST),STUDENT_NAME FROM STUDENT;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'marino.STUDENT.student_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 GROUP BY student;
+ERROR 1054 (42S22): Unknown column 'student' in 'group statement'
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 GROUP BY student_name;
++-----------+--------------+
+| MIN(COST) | student_name |
++-----------+--------------+
+|     30000 | prity        |
+|     50000 | meghla       |
++-----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 GROUP BY student_code\;
+ERROR: 
+Unknown command '\;'.
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\' at line 1
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 GROUP BY student_code;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'marino.student.student_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 order BY student_code;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'marino.student.student_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 order BY student_name;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #2 of SELECT list contains nonaggregated column 'marino.student.student_name'; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 GROUP BY Student_name order BY student_name;
++-----------+--------------+
+| MIN(COST) | student_name |
++-----------+--------------+
+|     50000 | meghla       |
+|     30000 | prity        |
++-----------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT student_name from student WHERE cost>20000 order BY student_name;
++--------------+
+| student_name |
++--------------+
+| meghla       |
+| prity        |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(Student_ID)Student_name From student GROUP BY student_name HAVING COUNT(student_ID)>2;
+Empty set, 1 warning (0.00 sec)
+
+mysql> 
+mysql> SELECT COUNT(Student_ID)Student_name From student GROUP BY student_name HAVING COUNT(student_ID)>1;
+Empty set, 1 warning (0.00 sec)
+
+mysql> SELECT COUNT(Student_ID),Student_name From student GROUP BY student_name HAVING COUNT(student_ID)>1;
+Empty set (0.00 sec)
+
+mysql> SELECT
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> 
+mysql> 
+mysql> SELECt
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT * FROM STUDENT WHERE student_name LIKE'p%';
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          1 | prity        |         1011 | 30000 |
++------------+--------------+--------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT WHERE student_name LIKE'_r%';
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          1 | prity        |         1011 | 30000 |
++------------+--------------+--------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT WHERE cost IN(20000,60000);
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          2 | sara         |         1012 | 20000 |
++------------+--------------+--------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT WHERE cost IN(20000,50000);
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          2 | sara         |         1012 | 20000 |
+|          4 | meghla       |         1014 | 50000 |
++------------+--------------+--------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT WHERE cost BETWEEN 20000 AND 50000;
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          1 | prity        |         1011 | 30000 |
+|          2 | sara         |         1012 | 20000 |
+|          4 | meghla       |         1014 | 50000 |
++------------+--------------+--------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECt * FROM Student WHERE cost>ANY(SELECT cost FROM student WHERE Student_iD=1); 
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          4 | meghla       |         1014 | 50000 |
++------------+--------------+--------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECt * FROM Student WHERE cost>ANY(SELECT cost FROM student WHERE Student_iD>1); 
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          1 | prity        |         1011 | 30000 |
+|          2 | sara         |         1012 | 20000 |
+|          4 | meghla       |         1014 | 50000 |
++------------+--------------+--------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECt * FROM Student WHERE cost>all(SELECT cost FROM student WHERE Student_iD>1); 
+Empty set (0.00 sec)
+
+mysql> SELECt * FROM Student WHERE cost>all(SELECT cost FROM student WHERE Student_iD=1); 
++------------+--------------+--------------+-------+
+| student_id | student_name | student_code | cost  |
++------------+--------------+--------------+-------+
+|          4 | meghla       |         1014 | 50000 |
++------------+--------------+--------------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM from student WHERE cost>20000 GROUP BY student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from student WHERE cost>20000 GROUP BY student' at line 1
+mysql> SELECT * FROM  student WHERE cost>20000 GROUP BY student;
+ERROR 1054 (42S22): Unknown column 'student' in 'group statement'
+mysql> SELECT * FROM  student WHERE cost>20000 GROUP BY student_name
+    -> ;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'marino.student.student_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECt * FROM Student WHERE cost>all(SELECT cost FROM student WHERE Student_iD>1); 
+Empty set (0.00 sec)
+
+    -> ^C
+mysql> SELECT COST,student_name from student WHERE cost>20000 GROUP BY student;
+ERROR 1054 (42S22): Unknown column 'student' in 'group statement'
+mysql> SELECT max(COST),student_name from student WHERE cost>20000 GROUP BY student;
+ERROR 1054 (42S22): Unknown column 'student' in 'group statement'
+mysql> SELECT MIN(COST),student_name from student WHERE cost>20000 GROUP BY student;
+ERROR 1054 (42S22): Unknown column 'student' in 'group statement'
+mysql> create table SALES(
+    -> SALESID  INT,
+    -> PRODUCT VARCHAR(80),
+    -> QUANTITY INT,
+    -> PRICE INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> inserT into SALES(SALESID,PRODUCT,QUANTITY,PRICE)VALUES(1,'PEN',10,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> inserT into SALES(SALESID,PRODUCT,QUANTITY,PRICE)VALUES(2,'NOTEBOOK',5,20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> inserT into SALES(SALESID,PRODUCT,QUANTITY,PRICE)VALUES(3,'PEN',15,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> inserT into SALES(SALESID,PRODUCT,QUANTITY,PRICE)VALUES(4,'PENCIL',20,2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> inserT into SALES(SALESID,PRODUCT,QUANTITY,PRICE)VALUES(5,'NOTEBOOK',10,20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from sales;
++---------+----------+----------+-------+
+| SALESID | PRODUCT  | QUANTITY | PRICE |
++---------+----------+----------+-------+
+|       1 | PEN      |       10 |     5 |
+|       2 | NOTEBOOK |        5 |    20 |
+|       3 | PEN      |       15 |     5 |
+|       4 | PENCIL   |       20 |     2 |
+|       5 | NOTEBOOK |       10 |    20 |
++---------+----------+----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select count(QUANTITY) from SALES GROUP BY PRODUCT;
++-----------------+
+| count(QUANTITY) |
++-----------------+
+|               2 |
+|               2 |
+|               1 |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(QUANTITY),PRODUCT from SALES GROUP BY PRODUCT;
++-----------------+----------+
+| count(QUANTITY) | PRODUCT  |
++-----------------+----------+
+|               2 | PEN      |
+|               2 | NOTEBOOK |
+|               1 | PENCIL   |
++-----------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select count(QUANTITY),PRODUCT,Sum(qUANTITY) from SALES GROUP BY PRODUCT;
++-----------------+----------+---------------+
+| count(QUANTITY) | PRODUCT  | Sum(qUANTITY) |
++-----------------+----------+---------------+
+|               2 | PEN      |            25 |
+|               2 | NOTEBOOK |            15 |
+|               1 | PENCIL   |            20 |
++-----------------+----------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(QUANTITY),PRODUCT,Sum(qUANTITY) from SALES GROUP BY PRODUCT having COUNT(SUM(QUANTITY))>15;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select count(QUANTITY),PRODUCT,Sum(qUANTITY) from SALES GROUP BY PRODUCT having COUNT(QUANTITY)>15;
+Empty set (0.00 sec)
+
+mysql> select count(QUANTITY),PRODUCT,Sum(qUANTITY) from SALES GROUP BY PRODUCT ;
++-----------------+----------+---------------+
+| count(QUANTITY) | PRODUCT  | Sum(qUANTITY) |
++-----------------+----------+---------------+
+|               2 | PEN      |            25 |
+|               2 | NOTEBOOK |            15 |
+|               1 | PENCIL   |            20 |
++-----------------+----------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> 
+mysql> select count(QUANTITY),PRODUCT,Sum(qUANTITY) as S from SALES GROUP BY PRODUCT having Count(S)>15;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select count(QUANTITY),PRODUCT,Sum(qUANTITY) from SALES GROUP BY PRODUCT having sum(QUANTITY)>15;
++-----------------+---------+---------------+
+| count(QUANTITY) | PRODUCT | Sum(qUANTITY) |
++-----------------+---------+---------------+
+|               2 | PEN     |            25 |
+|               1 | PENCIL  |            20 |
++-----------------+---------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select salesid,price,product,quantity from sales order by asc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'asc' at line 1
+mysql> select salesid,price,product,quantity from sales order by PRICE asc;
++---------+-------+----------+----------+
+| salesid | price | product  | quantity |
++---------+-------+----------+----------+
+|       4 |     2 | PENCIL   |       20 |
+|       1 |     5 | PEN      |       10 |
+|       3 |     5 | PEN      |       15 |
+|       2 |    20 | NOTEBOOK |        5 |
+|       5 |    20 | NOTEBOOK |       10 |
++---------+-------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select count(QUANTITY),PRODUCT,Sum(qUANTITY) from SALES GROUP BY price having count(PRICE)<20;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'marino.SALES.PRODUCT' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from SALES GROUP BY price having count(PRICE)<20;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'marino.SALES.SALESID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> Terminal close -- exit!
