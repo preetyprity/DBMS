@@ -1,0 +1,516 @@
+mysql>                                                    vcvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    -> 
+    -> 
+    -> 
+    -> 
+    -> 
+    -> SHOW DATABASES;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'vcvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv' at line 1
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| campus             |
+| iit14thbatch       |
+| information_schema |
+| labquiz_01_1958    |
+| mysql              |
+| performance_schema |
+| sakila             |
+| summer             |
+| sys                |
+| transport          |
+| world              |
++--------------------+
+11 rows in set (0.00 sec)
+
+mysql> USE iit14batch;
+ERROR 1049 (42000): Unknown database 'iit14batch'
+mysql> USE iit14thbatch;
+Database changed
+mysql> DESC employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | int         | YES  |     | NULL    |       |
+| Name   | varchar(50) | YES  |     | NULL    |       |
+| salary | int         | YES  |     | 25000   |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT NAME ,CONVERT("2015-02-12",DATE) SAL FROM employee;\
++--------+------------+
+| NAME   | SAL        |
++--------+------------+
+| marjia | 2015-02-12 |
+| prity  | 2015-02-12 |
+| sraa   | 2015-02-12 |
+| sumiya | 2015-02-12 |
+| sumiya | 2015-02-12 |
++--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT NAME ,CONVERT("2015-02-12",DATE) SAL FROM employee;
++--------+------------+
+| NAME   | SAL        |
++--------+------------+
+| marjia | 2015-02-12 |
+| prity  | 2015-02-12 |
+| sraa   | 2015-02-12 |
+| sumiya | 2015-02-12 |
+| sumiya | 2015-02-12 |
++--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT CONVERT("2025-05-06","DATE");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"DATE")' at line 1
+mysql> SELECT CONVERT("2025-05-06",DATE);
++----------------------------+
+| CONVERT("2025-05-06",DATE) |
++----------------------------+
+| 2025-05-06                 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT NAME ,CONVERT(salary,DECIMAL(6,4)) SAL FROM employee;
++--------+---------+
+| NAME   | SAL     |
++--------+---------+
+| marjia | 99.9999 |
+| prity  | 99.9999 |
+| sraa   | 99.9999 |
+| sumiya | 99.9999 |
+| sumiya | 99.9999 |
++--------+---------+
+5 rows in set, 5 warnings (0.00 sec)
+
+mysql> SELECT MOD(8,5);
++----------+
+| MOD(8,5) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ABS(-15);
++----------+
+| ABS(-15) |
++----------+
+|       15 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FLOOR(7.6);
++------------+
+| FLOOR(7.6) |
++------------+
+|          7 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CEL(7.6);
+ERROR 1305 (42000): FUNCTION iit14thbatch.CEL does not exist
+mysql> SELECT CEIL(7.6);
++-----------+
+| CEIL(7.6) |
++-----------+
+|         8 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT POWER(3,6);
++------------+
+| POWER(3,6) |
++------------+
+|        729 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT ROUND(7.6);
++------------+
+| ROUND(7.6) |
++------------+
+|          8 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SQRT(7.6);
++-------------------+
+| SQRT(7.6)         |
++-------------------+
+| 2.756809750418044 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT* FROM employee WHERE salary>ALL(SELECT salary FROM employee WHERE employee >145);
+ERROR 1054 (42S22): Unknown column 'employee' in 'where clause'
+mysql>  SELECT* FROM employee WHERE salary>ALL(SELECT salary FROM employee WHERE salary >145);
+Empty set (0.00 sec)
+
+mysql>  SELECT* FROM employee WHERE salary>ALL(SELECT salary FROM employee WHERE ID >145);
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
+|    1 | sraa   |   5779 |
+|    2 | sumiya |  40765 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT salary FROM employee where id=145;
+Empty set (0.00 sec)
+
+mysql> SELECT salary FROM employee where id=1;
++--------+
+| salary |
++--------+
+|   7000 |
+|   5779 |
++--------+
+2 rows in set (0.00 sec)
+
+mysql>  SELECT* FROM employee WHERE salary>ALL(SELECT salary FROM employee WHERE ID =1);
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    2 | prity  |  25000 |
+|    2 | sumiya |  40765 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql>  SELECT* FROM employee WHERE salary>ANY(SELECT salary FROM employee WHERE ID >1);
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
+|    1 | sraa   |   5779 |
+|    2 | sumiya |  40765 |
++------+--------+--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee;
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    2 | prity  |  25000 |
+|    1 | sraa   |   5779 |
+|    2 | sumiya |  40765 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE salary BETWEEN 2000 AND 10000;
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
+|    1 | sraa   |   5779 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE salary In( 2000 , 10000);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE salary In( 4000 , 5000);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE salary In( 4000 , 7000);
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
++------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE employee LIKE 'Y%';
+ERROR 1054 (42S22): Unknown column 'employee' in 'where clause'
+mysql> SELECT * FROM employee WHERE NAME LIKE 'Y%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE NAME LIKE 'M%';
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    1 | marjia |   7000 |
++------+--------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE NAME LIKE '_M%';
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE NAME LIKE '_r%';
++------+-------+--------+
+| ID   | Name  | salary |
++------+-------+--------+
+|    2 | prity |  25000 |
+|    1 | sraa  |   5779 |
++------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE NAME LIKE '__M%';
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    2 | sumiya |  40765 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE NAME LIKE '___t%';
++------+-------+--------+
+| ID   | Name  | salary |
++------+-------+--------+
+|    2 | prity |  25000 |
++------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employee WHERE salary =ANY(SELECT salary FROM employee WHERE id>1);
++------+--------+--------+
+| ID   | Name   | salary |
++------+--------+--------+
+|    2 | prity  |  25000 |
+|    2 | sumiya |  40765 |
+|    3 | sumiya |   3527 |
++------+--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_iit14thbatch |
++------------------------+
+| arong                  |
+| client                 |
+| employee               |
+| flower                 |
+| hall                   |
+| market1                |
+| market2                |
+| market3                |
+| student                |
+| test1                  |
+| test2                  |
+| user                   |
+| user_2                 |
+| usertype               |
++------------------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT;
+Empty set (0.01 sec)
+
+mysql> SELECT * FROM student\;
+ERROR: 
+Unknown command '\;'.
+    -> SELECT * FROM student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\;
+SELECT * FROM student' at line 1
+mysql> SELECT * FROM student;
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM hall;
++----+-----------+-----+
+| id | NAME      | Age |
++----+-----------+-----+
+|  1 | pritilota |   3 |
+|  1 | pritilota |   6 |
+|  2 | pritilota |   6 |
++----+-----------+-----+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE child_table
+    -> ADD CONSTRAINT fk_name
+    -> FOREIGN KEY (child_column)
+    -> REFERENCES parent_table(parent_column);
+ERROR 1146 (42S02): Table 'iit14thbatch.child_table' doesn't exist
+mysql> CREATE TABLE  student1(
+    -> ID PRIMARY KEY,
+    -> NAME VARCHAR(50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY,
+NAME VARCHAR(50))' at line 2
+mysql> CREATE TABLE student1(
+    -> ID INT PRIMARY KEY,
+    -> NAME VARCHAR(30));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO student1(ID,NAME)VALUES(1,'sarrr');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO student1(ID,NAME)VALUES(2,'zara');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> ALTER TABLE employee ADD COLUMNN ID1 INT ,ADD CONSTRAINT fk_id FOREIGN KEY(ID1) REFERENCES student1(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ID1 INT ,ADD CONSTRAINT fk_id FOREIGN KEY(ID1) REFERENCES student1(ID)' at line 1
+mysql> CRETAE TABLE employee(
+    -> ID INT,
+    -> salary INT,
+    -> FOREIGN KEY(ID) REFERENCES student1(ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRETAE TABLE employee(
+ID INT,
+salary INT,
+FOREIGN KEY(ID) REFERENCES student1(I' at line 1
+mysql>  CRETAE TABLE emp(
+    -> ID INT,
+    -> salary VARCHAR(50),
+    -> FOREIGN KEY (ID) REFERENCES student1(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRETAE TABLE emp(
+ID INT,
+salary VARCHAR(50),
+FOREIGN KEY (ID) REFERENCES studen' at line 1
+mysql>  CRETAE TABLE emp(
+    -> ID INT,
+    -> salary INT,
+    -> FOREIGN KEY (ID) REFERENCES student1(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRETAE TABLE emp(
+ID INT,
+salary INT,
+FOREIGN KEY (ID) REFERENCES student1(id))' at line 1
+mysql> CREATE TABLE employees (
+    ->     id INT PRIMARY KEY,
+    ->     salary INT, 
+    ->     FOREIGN KEY (id) REFERENCES student1(id) 
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO employees(ID,salary)VALUES(1,36717);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO employees(ID,salary)VALUES(2,9017);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM STUDENT WHERE ID IN(SELECT ID FROM employee WHERE salary=2000);
+ERROR 1054 (42S22): Unknown column 'ID' in 'IN/ALL/ANY subquery'
+mysql> SELECT * FROM STUDENT1 WHERE ID IN(SELECT ID FROM employee WHERE salary=2000);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT1 WHERE ID IN(SELECT ID FROM employee WHERE salary=9017);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees;
++----+--------+
+| id | salary |
++----+--------+
+|  1 |  36717 |
+|  2 |   9017 |
++----+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM student1;
++----+-------+
+| ID | NAME  |
++----+-------+
+|  1 | sarrr |
+|  2 | zara  |
++----+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STUDENT1 WHERE ID IN(SELECT ID FROM employees WHERE salary=2000);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID IN(SELECT ID FROM student1 WHERE name='zara');
++----+--------+
+| id | salary |
++----+--------+
+|  2 |   9017 |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID IN(SELECT ID FROM student1 WHERE name='ara');
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID =ANY(SELECT ID FROM student1 WHERE name='ZARA');
++----+--------+
+| id | salary |
++----+--------+
+|  2 |   9017 |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID =SOME(SELECT ID FROM student1 WHERE name='ZARA');
++----+--------+
+| id | salary |
++----+--------+
+|  2 |   9017 |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID IN(SELECT ID FROM student1 WHERE name='trrr');
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID =(SELECT ID FROM student1 WHERE name='trrr');
+Empty set (0.00 sec)
+
+mysql>  INSERT INTO student1(ID,NAME)VALUES(1,'
+    '> ^C
+mysql> INSERT INTO student1(ID,NAME)VALUES(3,'ZARA');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID =SOME(SELECT ID FROM student1 WHERE name='ZARA');
++----+--------+
+| id | salary |
++----+--------+
+|  2 |   9017 |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql>  INSERT INTO employees(ID,salary)VALUES(3,1000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID =SOME(SELECT ID FROM student1 WHERE name='ZARA');
++----+--------+
+| id | salary |
++----+--------+
+|  2 |   9017 |
+|  3 |   1000 |
++----+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID =SOME(SELECT ID FROM student1 WHERE name='sarrr');
++----+--------+
+| id | salary |
++----+--------+
+|  1 |  36717 |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM student1 WHERE ID =(SELECT ID FROM employees WHERE name='sarrr');
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> SELECT * FROM employees WHERE ID =SOME(SELECT ID FROM student1 WHERE salary=9017);
++----+--------+
+| id | salary |
++----+--------+
+|  2 |   9017 |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID IN(SELECT ID FROM student1 WHERE salary=9017);
++----+--------+
+| id | salary |
++----+--------+
+|  2 |   9017 |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM employees WHERE ID =ANY SELECT ID FROM student1 WHERE salary=9017);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT ID FROM student1 WHERE salary=9017)' at line 1
+mysql> SELECT * FROM employees WHERE ID >=ANY SELECT ID FROM student1 WHERE salary=9017);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT ID FROM student1 WHERE salary=9017)' at line 1
+mysql> SELECT * FROM student1 WHERE ID >=ANY SELECT ID FROM employees WHERE salary=9017);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT ID FROM employees WHERE salary=9017)' at line 1
+mysql> SELECT * FROM employees WHERE ID =ANY SELECT ID FROM employees WHERE salary>9017);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT ID FROM employees WHERE salary>9017)' at line 1
+mysql> SELECT CONVERT("2025-05-06",DATE);
++----------------------------+
+| CONVERT("2025-05-06",DATE) |
++----------------------------+
+| 2025-05-06                 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONVERT("2025-05-06",'DATE');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''DATE')' at line 1
+mysql> Terminal close -- exit!
