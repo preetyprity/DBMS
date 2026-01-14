@@ -1,0 +1,273 @@
+mysql> 
+mysql> CREATE DATABASES LABB;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABASES LABB' at line 1
+mysql> 
+mysql> 
+mysql> CREATE DATABASE LABB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE LABB;
+Database changed
+mysql> 
+mysql> CREATE TABLE employee(
+    -> employeeid INT,
+    -> employeename VARCHAR(70),
+    -> salary INT,
+    -> studentid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 5
+mysql> 
+mysql> CREATE TABLE employee(
+    -> employeeid INT,
+    -> employeename VARCHAR(70),
+    -> salary INT,
+    -> studentid INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+mysql> INSERT INTO employee(employeeid,employeename,salary,studentid)VALUES(1,'prity',20000,101);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO employee(employeeid,employeename,salary,studentid)VALUES(2,'sara',30000,102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO employee(employeeid,employeename,salary,studentid)VALUES(3,'tanzila',40000,103);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO employee(employeeid,employeename,salary,studentid)VALUES(4,'zarin',50000,104);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE VIEW `salary above 4000` AS SELECT * FROM employee where salary>4000;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM `salary above 4000`;
++------------+--------------+--------+-----------+
+| employeeid | employeename | salary | studentid |
++------------+--------------+--------+-----------+
+|          1 | prity        |  20000 |       101 |
+|          2 | sara         |  30000 |       102 |
+|          3 | tanzila      |  40000 |       103 |
+|          4 | zarin        |  50000 |       104 |
++------------+--------------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE student(
+    -> studentname VARCHAR(70),
+    -> studentid INT);
+Query OK, 0 rows affected (0.35 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('p',101);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('r',102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('q',102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('w',102);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM STUDENT;
++-------------+-----------+
+| studentname | studentid |
++-------------+-----------+
+| p           |       101 |
+| r           |       102 |
+| q           |       102 |
+| w           |       102 |
++-------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE VIEW `studentid above average` as select * from student where studentid>(select AVG(studentid) from student);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM `studentid above average`;
++-------------+-----------+
+| studentname | studentid |
++-------------+-----------+
+| r           |       102 |
+| q           |       102 |
+| w           |       102 |
++-------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> TRUNCATE TABLE student;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('p',101);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('r',102);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('q',103);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO student(studentname,studentid)VALUES('w',104);
+Query OK, 1 row affected (1.89 sec)
+
+mysql> select * from student;
++-------------+-----------+
+| studentname | studentid |
++-------------+-----------+
+| p           |       101 |
+| r           |       102 |
+| q           |       103 |
+| w           |       104 |
++-------------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE VIEW `studentid above average` as select * from student where studentid>(select AVG(studentid) from student);
+ERROR 1050 (42S01): Table 'studentid above average' already exists
+mysql> CREATE VIEW `studentid above average` as select * from student where studentid>(select AVG(studentid) from student);
+ERROR 1050 (42S01): Table 'studentid above average' already exists
+mysql> 
+mysql> 
+mysql> ALTER TABLE student RENAME TO student_info;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE VIEW `studentid above averagee` as select * from student_info where studentid>(select AVG(studentid) from student_info);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM `studentid above averagee`;
++-------------+-----------+
+| studentname | studentid |
++-------------+-----------+
+| q           |       103 |
+| w           |       104 |
++-------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE OR REPLACE VIEW Salary AS SELECT * FROM Employee WHERE Salary<30000;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM salary;
++------------+--------------+--------+-----------+
+| employeeid | employeename | salary | studentid |
++------------+--------------+--------+-----------+
+|          1 | prity        |  20000 |       101 |
++------------+--------------+--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> DROP VIEW salary;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from salary;
+ERROR 1146 (42S02): Table 'labb.salary' doesn't exist
+mysql> CREATE USER `prity'@'localhost' Identified By '123456';
+    `> 
+    `> ^C
+mysql> CREATE USER 'prity'@'localhost' Identified By '123456';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE USER 'prity'@'192.168.56.1' Identified By '123456';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM MYSQL.USER;
++--------------+------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------------------+--------------------------+----------------------------+---------------+-------------+-----------------+----------------------+-----------------------+------------------------------------------------------------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+| Host         | User             | Select_priv | Insert_priv | Update_priv | Delete_priv | Create_priv | Drop_priv | Reload_priv | Shutdown_priv | Process_priv | File_priv | Grant_priv | References_priv | Index_priv | Alter_priv | Show_db_priv | Super_priv | Create_tmp_table_priv | Lock_tables_priv | Execute_priv | Repl_slave_priv | Repl_client_priv | Create_view_priv | Show_view_priv | Create_routine_priv | Alter_routine_priv | Create_user_priv | Event_priv | Trigger_priv | Create_tablespace_priv | ssl_type | ssl_cipher             | x509_issuer              | x509_subject               | max_questions | max_updates | max_connections | max_user_connections | plugin                | authentication_string                                                  | password_expired | password_last_changed | password_lifetime | account_locked | Create_role_priv | Drop_role_priv | Password_reuse_history | Password_reuse_time | Password_require_current | User_attributes |
++--------------+------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------------------+--------------------------+----------------------------+---------------+-------------+-----------------+----------------------+-----------------------+------------------------------------------------------------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+| 192.168.56.1 | prity            | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |                      |                        |                          |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$&&c<bKSmNb*]8?O6e36Bb2xeWVmH1wgm2LL2XuN7Jjqz0l0W.f0d2N8Mz9 | N                | 2026-01-14 15:04:57   |              NULL | N              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost    | mysql.infoschema | Y           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |                      |                        |                          |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED | N                | 2025-09-24 14:57:42   |              NULL | Y              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost    | mysql.session    | N           | N           | N           | N           | N           | N         | N           | Y             | N            | N         | N          | N               | N          | N          | N            | Y          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |                      |                        |                          |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED | N                | 2025-09-24 14:57:42   |              NULL | Y              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost    | mysql.sys        | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |                      |                        |                          |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED | N                | 2025-09-24 14:57:42   |              NULL | Y              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost    | prity            | N           | N           | N           | N           | N           | N         | N           | N             | N            | N         | N          | N               | N          | N          | N            | N          | N                     | N                | N            | N               | N                | N                | N              | N                   | N                  | N                | N          | N            | N                      |          |                      |                        |                          |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$LsQ6%8(S;1.tPclPi;Dv.cp09Us.Ml9lvy2WUwDJKCOmQbEkic9QeDBdYZuV8 | N                | 2026-01-14 15:03:19   |              NULL | N              | N                | N              |                   NULL |                NULL | NULL                     | NULL            |
+| localhost    | root             | Y           | Y           | Y           | Y           | Y           | Y         | Y           | Y             | Y            | Y         | Y          | Y               | Y          | Y          | Y            | Y          | Y                     | Y                | Y            | Y               | Y                | Y                | Y              | Y                   | Y                  | Y                | Y          | Y            | Y                      |          |                      |                        |                          |             0 |           0 |               0 |                    0 | caching_sha2_password | $A$005$`-L,@c-F_wGed	qXSRGYCL8oARjcOwGVrH4b6WJ.YUER9D1zVgIS2NmRkYG7 | N                | 2025-09-24 16:01:15   |              NULL | N              | Y                | Y              |                   NULL |                NULL | NULL                     | NULL            |
++--------------+------------------+-------------+-------------+-------------+-------------+-------------+-----------+-------------+---------------+--------------+-----------+------------+-----------------+------------+------------+--------------+------------+-----------------------+------------------+--------------+-----------------+------------------+------------------+----------------+---------------------+--------------------+------------------+------------+--------------+------------------------+----------+------------------------+--------------------------+----------------------------+---------------+-------------+-----------------+----------------------+-----------------------+------------------------------------------------------------------------+------------------+-----------------------+-------------------+----------------+------------------+----------------+------------------------+---------------------+--------------------------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> ^C
+mysql> CREATE VIEW `studentid above average` as select * from student where studentid>(select AVG(studentid) from student);CREATE VIEW `studentid above average` as select * from student where studentid>(select AVG(studentid) from student);
+ERROR 1146 (42S02): Table 'labb.student' doesn't exist
+ERROR 1146 (42S02): Table 'labb.student' doesn't exist
+mysql> 
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> 
+mysql> 
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> ^C
+mysql> SELECT USER FROM MYSQL.USER;
++------------------+
+| USER             |
++------------------+
+| prity            |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| prity            |
+| root             |
++------------------+
+6 rows in set (0.00 sec)
+
+mysql> mysql> 
+mysql> 
+mysql> 
+mysql> SELECT USER FROM MYSQL.USER;
++------------------+
+| USER             |
++------------------+
+| prity            |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| prity            |
+| root             |
++------------------+
+6 rows in set (0.00 sec)
+
+mysql> GRANT ALL PRIVILEGES ON LABB.student_info TO 'prity'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW GRANTS FOR 'prity'@'localhost';
++----------------------------------------------------------------------+
+| Grants for prity@localhost                                           |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `prity`@`localhost`                            |
+| GRANT ALL PRIVILEGES ON `labb`.`student_info` TO `prity`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> mysql -u prity -p;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql -u prity -p' at line 1
+mysql> 
+mysql> mysql -u prityy -p;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql -u prityy -p' at line 1
+mysql> 
+mysql> GRANT SELECT ON LABB.employee to 'prity'@localhost';
+    '> ;
+    '> ^C
+mysql> 
+mysql> 
+mysql> USE LABB;
+Database changed
+mysql> GRANT SELECT ON LABB.employee TO 'prity'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> REVOKE ALL PRIVILEGES ON LABB.employee FROM 'prity'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT SELECT ON LABB.employee TO 'prity'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> REVOKE SELECT ON LABB.employee FROM 'prity'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
